@@ -28,7 +28,7 @@ const TestData: React.FC<testDataProps> = ({ setBooks }) => {
 
   return (
     <>
-      <button onClick={loadTestData}>Loading Test Data</button>
+      <button onClick={loadTestData}>Load Test Data</button>
       <button onClick={eraseTestData}>Erase Test Data</button>
     </>
   );
