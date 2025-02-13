@@ -1,35 +1,57 @@
 import React from "react";
+import { Book } from "./Types";
 
-interface Book {
-  title: string;
-  author: string;
+// NOTE - Using the imported Book type
+
+// NOTE - Props for the TestData component
+interface TestDataProps {
+  setBooks: React.Dispatch<React.SetStateAction<Book[]>>; // Function to update the parent book state
 }
 
-interface testDataProps {
-  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
-}
+const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
+  // NOTE - Local test data is defined within this component
+  const testBooks: Book[] = [
+    { id: 0, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+    { id: 1, title: "Fahrenheit 451", author: "Ray Bradbury" },
+    {
+      id: 2,
+      title: "Harry Potter and the Sorcerer's Stone",
+      author: "J.K. Rowling",
+    },
+  ];
 
-const TestData: React.FC<testDataProps> = ({ setBooks }) => {
-  const testBooks = ([] = [
-    { title: "The Great Gatsby", author: "F.Scott Fitzgerald" },
-    { title: "Fahrenheit 451", author: "Ray Bradbury" },
-    { title: "Harry Potter and the Sorceroer's stone", author: "JK Rowling" },
-  ]);
-
+  // NOTE - Function to load the test data into the parent state
   const loadTestData = () => {
-    setBooks(testBooks);
-    console.log("Test data loaded");
+    setBooks((prevBooks) => [...prevBooks, ...testBooks]); // Merge test books with existing books
+    console.log("Test data loaded:", testBooks);
   };
 
+  // NOTE - updated function to remove only the test data while keeping
+  // user-added books in the parent state.
   const eraseTestData = () => {
-    setBooks([]);
-    console.log("test data erased");
+    setBooks((prevBooks) =>
+      //NOTE - this will help filter out the test data  while preserving
+      //NOTE - the user added books
+      prevBooks.filter(
+        (book) =>
+          !testBooks.some(
+            (testBook) =>
+              testBook.title === book.title && testBook.author === book.author
+          )
+      )
+    );
+    //NOTE - confirmin that the test data has been deleted.
+    console.log("Test data erased.");
   };
 
   return (
     <>
-      <button onClick={loadTestData}>Load Test Data</button>
-      <button onClick={eraseTestData}>Erase Test Data</button>
+      <button onClick={loadTestData} className="btn btn-secondary">
+        Load Test Data
+      </button>
+      <button onClick={eraseTestData} className="btn btn-danger">
+        Erase Test Data
+      </button>
     </>
   );
 };

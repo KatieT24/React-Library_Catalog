@@ -1,0 +1,189 @@
+/* ===== General Layout ===== */
+.app-container {
+  background: url("/book_background.jpg") no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ===== Frosted Glass Container (Unified for Book Entries) ===== */
+.frosted-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 20px;
+  width: 60%;
+  margin: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Title Styling ===== */
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 10px;
+}
+
+/* ===== Form Styling ===== */
+.book-form input {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  color: black;
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== List & Book Entries ===== */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Single frosted background for all book entries */
+.book-list-wrapper {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Each book entry is now a clickable row */
+.book-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.book-entry:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Editable Input Fields (Inline) */
+
+.edit-mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editable-input {
+  background: transparent;
+  border: none;
+  text-align: center;
+  color: black;
+  padding: 5px;
+  min-width: 40%;
+}
+
+.editable-input:focus {
+  outline: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ===== Buttons (Completely Transparent Delete & Test Data Buttons) ===== */
+.btn {
+  border: none;
+  padding: 8px 12px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background: rgba(0, 123, 255, 0.3);
+  color: black;
+}
+
+.btn-warning {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 5px 10px;
+}
+
+.btn-warning:hover {
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+}
+
+/* Fully Transparent Delete Button inside Frosted Container */
+.btn-delete-transparent {
+  background: none;
+  border: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-delete-transparent:hover {
+  color: red;
+}
+
+.btn-transparent {
+  background: none;
+  border: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.btn-transparent:hover {
+  color: red;
+}
+
+/* Fully Transparent Test Data Buttons */
+.test-data-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.test-data-buttons .btn {
+  background: none;
+  border: none;
+  color: black;
+  font-weight: bold;
+}
+
+.test-data-buttons .btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: black;
+}
+
+/* ===== Text & Readability ===== */
+.book-text {
+  flex-grow: 1;
+}
+
+.text-center {
+  text-align: center;
+}

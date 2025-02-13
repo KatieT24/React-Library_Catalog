@@ -1,15 +1,12 @@
 import React, { useState } from "react";
+import { AddBookFormProps } from "./Types";
+import { Form, Button } from "react-bootstrap";
 //NOTE - this is a hook, a hook is a function that lets me use a state
 // variable. This will store the input from the text field and updates as the user types
+// added more hooks to function for eveything to be working across the app.
 
-const AddBookForm = ({
-  onAdd,
-}: {
-  onAdd: (book: { title: string; author: string }) => void;
-  //NOTE - onAdd is a function passing from the parent component to the child component
-  // ie the App.tsx file is the parent and the Form.tsx is the child. this will
-  // allow the child to pass the "book" to the "catalog".
-}) => {
+//NOTE - making adjustments from old code to new code for the AddBookForm component.
+const AddBookForm: React.FC<AddBookFormProps> = ({ onAdd }) => {
   console.log("AddBookForm is rendering");
 
   const [input, setInput] = useState("");
@@ -26,7 +23,8 @@ const AddBookForm = ({
     console.log("form is working:", title, author);
 
     if (title && author) {
-      onAdd({ title: title.trim(), author: author.trim() });
+      // onAdd({ title: title.trim(), author: author.trim() });
+      onAdd({ id: Date.now(), title: title.trim(), author: author.trim() });
       setInput("");
       //NOTE - this is the functionm that is being pass from the parent component
       // to the child component. trim() is used to take care of any extra spaces.
@@ -39,29 +37,24 @@ const AddBookForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-3">
-      <div className="form-group">
-        <label htmlFor="book" className="book">
-          Book (Format: Title - Author)
-        </label>
-        <input
+    <Form onSubmit={handleSubmit} className="mb-3">
+      <Form.Group>
+        <p className="mb-2">Add Your Books</p>
+        <Form.Control
+          id="bookInput"
+          name="book"
           type="text"
-          id="book"
-          className="form-control"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter Book as Title - Author"
           autoComplete="off"
         />
-      </div>
-      <button type="submit" className="btn btn-primary">
+      </Form.Group>
+      <Button type="submit" variant="primary" className="mt-2">
         Add Book
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
-
-  //NOTE - this will be render the form and input field.
 };
-console.log("Form.tsx is loading");
 
 export default AddBookForm;
