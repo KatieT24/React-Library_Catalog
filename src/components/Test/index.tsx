@@ -1,5 +1,5 @@
 import React from "react";
-import { Book } from "./Types";
+import { Book } from "../../types/Types";
 
 // NOTE - Using the imported Book type
 
@@ -10,6 +10,7 @@ interface TestDataProps {
 
 const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
   // NOTE - Local test data is defined within this component
+
   const testBooks: Book[] = [
     { id: 0, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
     { id: 1, title: "Fahrenheit 451", author: "Ray Bradbury" },
@@ -21,8 +22,11 @@ const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
   ];
 
   // NOTE - Function to load the test data into the parent state
+
   const loadTestData = () => {
-    setBooks((prevBooks) => [...prevBooks, ...testBooks]); // Merge test books with existing books
+    setBooks((prevBooks) => [...prevBooks, ...testBooks]);
+    //NOTE - merging the test data with existsing data
+
     console.log("Test data loaded:", testBooks);
   };
 

@@ -1,12 +1,11 @@
 import "./App.css";
 import { useState } from "react";
-import Title from "./Title";
-import AddBookForm from "./Form";
-import List from "./List";
-import TestData from "./TestData";
-import { Book } from "./Types";
+import Title from "./components/Title";
+import AddBookForm from "./components/Form/Form";
+import List from "./components/List/List";
+import TestData from "./components/Test";
+import { Book } from "./types/Types";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 // NOTE - i had to research that App.tsx and Main.tsx are two separate files.
 // The Main.tsx file is rendering the application, and the App.tsx file is the main file being rendered.
 // It took a while to figure out the issues that came with it.
@@ -17,13 +16,37 @@ function App() {
   // State to manage the list of books
   // Using the 'Book' interface instead of manually defining the state type
   const [books, setBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const clearSelectedBook = () => setSelectedBook(null);
 
   // NOTE - Each book has a unique ID using Date.now() for tracking
   const handleAddBook = (book: Book) => {
-    setBooks((prevBooks) => [...prevBooks, { ...book, id: Date.now() }]);
-    console.log("Book added:", book);
-  };
+    if (selectedBook) {
+      // REVIEW - We're editing: update the existing book and keep its original id
+      setBooks((prevBooks) =>
+        prevBooks.map((b) =>
+          b.id === selectedBook.id ? { ...book, id: selectedBook.id } : b
+        )
+      );
+      console.log("Book edited:", book);
+      clearSelectedBook();
+    } else {
+      // REVIEW - We're adding a new book
+      const duplicate = books.find(
+        (b) =>
+          b.title.toLowerCase() === book.title.toLowerCase() &&
+          b.author.toLowerCase() === book.author.toLowerCase()
+      );
 
+      if (duplicate) {
+        alert("This book already exists!");
+        return;
+      }
+
+      setBooks((prevBooks) => [...prevBooks, { ...book, id: Date.now() }]);
+      console.log("Book added:", book);
+    }
+  };
   // NOTE - Changed from index-based deletion to ID-based deletion to avoid issues with index shifting
   const handleDeleteBook = (id: number) => {
     setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
@@ -31,12 +54,9 @@ function App() {
   };
 
   // NOTE - Function to handle editing books
-  // Uses the map() function to ensure state updates are immutable
-  const handleEditBook = (id: number, updatedBook: Book) => {
-    setBooks((prevBooks) =>
-      prevBooks.map((book) => (book.id === id ? updatedBook : book))
-    );
-    console.log("Book edited:", id, updatedBook);
+  const handleEditBook = (book: Book) => {
+    setSelectedBook(book);
+    console.log("Editing book:", book);
   };
 
   console.log("Application is rendering");
@@ -46,12 +66,17 @@ function App() {
       <Title />
       <p className="text-center">Let's start making a Book List!</p>
 
-      {/* updated book input */}
+      {/* Always-visible book form */}
       <div className="book-form">
-        <AddBookForm onAdd={handleAddBook} />
+        <AddBookForm
+          onAdd={handleAddBook}
+          selectedBook={selectedBook}
+          books={books}
+          clearSelectedBook={clearSelectedBook}
+        />
       </div>
 
-      {/* fixed styling*/}
+      {/* List of books */}
       <div className="list-container">
         <List
           books={books}
@@ -60,7 +85,7 @@ function App() {
         />
       </div>
 
-      {/* fixed the test data stuff */}
+      {/* Test data buttons */}
       <div className="test-data-buttons">
         <TestData setBooks={setBooks} />
       </div>

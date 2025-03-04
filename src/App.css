@@ -33,14 +33,26 @@ h1 {
 }
 
 /* ===== Form Styling ===== */
-.book-form input {
-  width: 100%;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.2);
+.book-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.book-item {
+  padding: 8px 0;
+  margin-bottom: 10px;
   border: none;
-  border-radius: 5px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
   text-align: center;
-  color: black;
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .form-control {
@@ -53,13 +65,13 @@ h1 {
 
 /* ===== List & Book Entries ===== */
 .list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  margin-top: 20px;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.3); /* Even lighter */
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(4px);
 }
 
 /* Single frosted background for all book entries */
@@ -109,18 +121,79 @@ h1 {
 }
 
 /* ===== Buttons (Completely Transparent Delete & Test Data Buttons) ===== */
-.btn {
-  border: none;
-  padding: 8px 12px;
-  opacity: 0.8;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.btn-primary {
-  background: rgba(0, 123, 255, 0.3);
+button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
   color: black;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  transition: all 0.2s ease-in-out;
 }
 
+.btn-text {
+  all: unset;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  font-weight: 500;
+  opacity: 0.8;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+}
+
+.btn-text:hover {
+  color: black;
+  opacity: 1;
+  border-color: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+
+/* Primary Button (Edit, Add Book) */
+.btn-text-primary {
+  all: unset;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1rem;
+  padding: 8px 16px;
+  font-weight: 600;
+  opacity: 1;
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.btn-text-primary:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+}
+
+/* Neutral Delete Button */
+.btn-danger {
+  all: unset;
+  color: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+  color: red;
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Warning Button (For secondary actions) */
 .btn-warning {
   background: transparent;
   color: white;
@@ -133,7 +206,7 @@ h1 {
   opacity: 1;
 }
 
-/* Fully Transparent Delete Button inside Frosted Container */
+/* Delete Button (Now fully transparent inside frosted container) */
 .btn-delete-transparent {
   background: none;
   border: none;
@@ -144,22 +217,25 @@ h1 {
 
 .btn-delete-transparent:hover {
   color: red;
+  transform: scale(1.1); /* Small effect to make it feel interactive */
 }
 
+/* Transparent Button (Generic usage) */
 .btn-transparent {
   background: none;
   border: none;
   color: black;
   font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.2s;
 }
 
 .btn-transparent:hover {
   color: red;
+  transform: scale(1.05);
 }
 
-/* Fully Transparent Test Data Buttons */
+/* Test Data Buttons - Fully Transparent */
 .test-data-buttons {
   display: flex;
   justify-content: center;
@@ -172,11 +248,13 @@ h1 {
   border: none;
   color: black;
   font-weight: bold;
+  padding: 8px 12px;
 }
 
 .test-data-buttons .btn:hover {
   background: rgba(255, 255, 255, 0.2);
   color: black;
+  transform: scale(1.05);
 }
 
 /* ===== Text & Readability ===== */
