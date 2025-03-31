@@ -1,3 +1,7 @@
+// NOTE: This component was used for testing but is now replaced by MockAPI.
+// Keeping it for reference, but it's no longer imported or used.
+
+/*
 import React from "react";
 import { Book } from "../../types/Types";
 
@@ -5,37 +9,32 @@ import { Book } from "../../types/Types";
 
 // NOTE - Props for the TestData component
 interface TestDataProps {
-  setBooks: React.Dispatch<React.SetStateAction<Book[]>>; // Function to update the parent book state
+  setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>; // Function to update the parent book state
 }
 
-const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
+const TestData: React.FC<TestDataProps> = ({ setAllBooks }) => {
   // NOTE - Local test data is defined within this component
 
   const testBooks: Book[] = [
-    { id: 0, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
-    { id: 1, title: "Fahrenheit 451", author: "Ray Bradbury" },
-    {
-      id: 2,
-      title: "Harry Potter and the Sorcerer's Stone",
-      author: "J.K. Rowling",
-    },
+    { id: 101, title: "The Hobbit", author: "J.R.R. Tolkien" },
+    { id: 102, title: "Catcher in the Rye", author: "J.D. Salinger" },
   ];
 
   // NOTE - Function to load the test data into the parent state
 
   const loadTestData = () => {
-    setBooks((prevBooks) => [...prevBooks, ...testBooks]);
-    //NOTE - merging the test data with existsing data
+    setAllBooks((prevBooks) => [...prevBooks, ...testBooks]);
+    //NOTE - merging the test data with existing data
 
     console.log("Test data loaded:", testBooks);
   };
 
-  // NOTE - updated function to remove only the test data while keeping
+  // NOTE - Updated function to remove only the test data while keeping
   // user-added books in the parent state.
   const eraseTestData = () => {
-    setBooks((prevBooks) =>
-      //NOTE - this will help filter out the test data  while preserving
-      //NOTE - the user added books
+    setAllBooks((prevBooks) =>
+      //NOTE - This will help filter out the test data while preserving
+      //NOTE - the user-added books
       prevBooks.filter(
         (book) =>
           !testBooks.some(
@@ -44,7 +43,7 @@ const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
           )
       )
     );
-    //NOTE - confirmin that the test data has been deleted.
+    //NOTE - Confirming that the test data has been deleted.
     console.log("Test data erased.");
   };
 
@@ -61,3 +60,4 @@ const TestData: React.FC<TestDataProps> = ({ setBooks }) => {
 };
 
 export default TestData;
+*/

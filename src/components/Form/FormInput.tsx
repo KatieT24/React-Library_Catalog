@@ -11,11 +11,10 @@ const FormInput: React.FC<FormInputProps> = ({ name, value, onChange }) => {
     <Form.Group>
       <label htmlFor={name}>
         {name.charAt(0).toUpperCase() + name.slice(1)}
-      </label>{" "}
-      {/* Capitalizes first letter */}
+      </label>
       <Form.Control
-        id={name}
-        name={name}
+        id={name}  // Adding id attribute
+        name={name} // Adding name attribute
         type="text"
         value={value}
         onChange={onChange}

@@ -1,98 +1,32 @@
-import "./App.css";
-import { useState } from "react";
-import Title from "./components/Title";
-import AddBookForm from "./components/Form/Form";
-import List from "./components/List/List";
-import TestData from "./components/Test";
-import { Book } from "./types/Types";
-import "bootstrap/dist/css/bootstrap.min.css";
-// NOTE - i had to research that App.tsx and Main.tsx are two separate files.
-// The Main.tsx file is rendering the application, and the App.tsx file is the main file being rendered.
-// It took a while to figure out the issues that came with it.
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom"; // Import routing utilities from react-router-dom
+import Layout from "./components/layout/Layout"; // Layout component that wraps other pages
+import Home from "./pages/Home"; // Home page component where users can add and see books
+import Review from "./pages/Review"; // Review page for reviewing selected books
+import PrintList from "./pages/PrintList"; // PrintList page for showing books that can be printed
+import "./App.css"; // App-level styles, including custom styles for the entire app
 
-//NOTE - updated all the code and files and got rid of previous old code that was clutering up the files
-
-function App() {
-  // State to manage the list of books
-  // Using the 'Book' interface instead of manually defining the state type
-  const [books, setBooks] = useState<Book[]>([]);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const clearSelectedBook = () => setSelectedBook(null);
-
-  // NOTE - Each book has a unique ID using Date.now() for tracking
-  const handleAddBook = (book: Book) => {
-    if (selectedBook) {
-      // REVIEW - We're editing: update the existing book and keep its original id
-      setBooks((prevBooks) =>
-        prevBooks.map((b) =>
-          b.id === selectedBook.id ? { ...book, id: selectedBook.id } : b
-        )
-      );
-      console.log("Book edited:", book);
-      clearSelectedBook();
-    } else {
-      // REVIEW - We're adding a new book
-      const duplicate = books.find(
-        (b) =>
-          b.title.toLowerCase() === book.title.toLowerCase() &&
-          b.author.toLowerCase() === book.author.toLowerCase()
-      );
-
-      if (duplicate) {
-        alert("This book already exists!");
-        return;
-      }
-
-      setBooks((prevBooks) => [...prevBooks, { ...book, id: Date.now() }]);
-      console.log("Book added:", book);
-    }
-  };
-  // NOTE - Changed from index-based deletion to ID-based deletion to avoid issues with index shifting
-  const handleDeleteBook = (id: number) => {
-    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
-    console.log("Book deleted:", id);
-  };
-
-  // NOTE - Function to handle editing books
-  const handleEditBook = (book: Book) => {
-    setSelectedBook(book);
-    console.log("Editing book:", book);
-  };
-
-  console.log("Application is rendering");
-
+const App: React.FC = () => {
   return (
-    <div className="app-container">
-      <Title />
-      <p className="text-center">Let's start making a Book List!</p>
+    <BrowserRouter>
+      {/* NOTE - BrowserRouter wraps the entire routing system for client-side navigation */}
+      <Routes>
 
-      {/* Always-visible book form */}
-      <div className="book-form">
-        <AddBookForm
-          onAdd={handleAddBook}
-          selectedBook={selectedBook}
-          books={books}
-          clearSelectedBook={clearSelectedBook}
-        />
-      </div>
+        {/* NOTE - Layout component is the wrapper for all pages; it includes the navbar */}
+        <Route path="/" element={<Layout />}>
 
-      {/* List of books */}
-      <div className="list-container">
-        <List
-          books={books}
-          onDelete={handleDeleteBook}
-          onEdit={handleEditBook}
-        />
-      </div>
+          {/* NOTE - Home component is rendered at the root ("/") route */}
+          <Route index element={<Home />} />
 
-      {/* Test data buttons */}
-      <div className="test-data-buttons">
-        <TestData setBooks={setBooks} />
-      </div>
-    </div>
+          {/* NOTE - Review page is rendered when user navigates to "/review" */}
+          <Route path="review" element={<Review />} />
+          
+          {/* NOTE - PrintList page is rendered when user navigates to "/print" */}
+          <Route path="/print" element={<PrintList />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
-
-console.log("App.tsx is rendering");
+};
 
 export default App;

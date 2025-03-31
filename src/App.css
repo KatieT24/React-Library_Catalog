@@ -1,23 +1,28 @@
 /* ===== General Layout ===== */
 .app-container {
-  background: url("/book_background.jpg") no-repeat center center/cover;
-  min-height: 100vh;
+  background: url("/book_background.jpg") no-repeat center center/cover; /* Stretches the background to cover */
+  background-size: cover; /* Ensures the background stretches */
+  background-position: center; /* Centers the background */
+  min-height: 100vh; /* Ensures the container takes up at least the full height of the viewport */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   padding: 20px;
+  backdrop-filter: blur(25px); /* Adds a blur effect to the background */
+  overflow: hidden; /* Prevents overflow */
 }
 
 /* ===== Frosted Glass Container (Unified for Book Entries) ===== */
 .frosted-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.3); /* Lighter frosted effect */
+  backdrop-filter: blur(10px); /* Increased blur for clearer frosted look */
+  border-radius: 20px;
   padding: 20px;
-  width: 60%;
-  margin: auto;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -27,241 +32,187 @@ h1 {
   font-weight: bold;
   margin-bottom: 10px;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
+  background: rgba(151, 150, 150, 0.3);
   border-radius: 10px;
 }
 
-/* ===== Form Styling ===== */
-.book-form {
-  max-width: 500px;
-  margin: 40px auto;
+/* Custom Row Styling */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust gap between cards */
+  justify-content: center;
+  margin: 0;
+}
+
+/* Ensure that each card has a fixed width */
+.col-md-3 {
+  flex: 0 0 calc(25% - 20px); /* Cards take up 25% of the row */
+  max-width: calc(25% - 20px); /* Prevent the columns from overflowing */
+  min-width: 250px; /* Minimum width of the card */
+}
+
+/* ===== Custom Card Styling ===== */
+.card {
+  background: rgba(255, 182, 193, 0.6); /* Opaque pastel pink */
+  backdrop-filter: blur(8px); /* Frosted glass effect */
+  border-radius: 12px;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
-}
-
-.book-item {
-  padding: 8px 0;
-  margin-bottom: 10px;
-  border: none;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-  text-align: center;
-  font-size: 1.1rem;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.form-control {
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
+  height: 300px; /* Fixed height for all cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
   color: black;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Card Body Styling ===== */
+.card-body {
+  background-color: rgba(255, 182, 193, 0.8); /* Opaque pastel pink */
+  backdrop-filter: none; /* Remove blur from card body */
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Hover Effects for Cards */
+.card:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  opacity: 1; /* Fully opaque on hover */
+  background-color: rgb(197, 113, 113); /* Full opacity on hover for card */
+}
+
+/* Hover Effect for Card Body */
+.card:hover .card-body {
+  background-color: rgb(197, 113, 113); /* Full opacity on hover for card body */
+}
+
+.card:hover .card-title {
+  white-space: normal;  /* Allow the text to wrap */
+  overflow: visible;    /* Make overflow visible */
+  text-overflow: clip;  /* Remove ellipsis */
+}
+
+/* Title and Subtitle Adjustments */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;  /* Prevents text from wrapping */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Buttons Styling */
+button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.2); /* Frosted button background */
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Buttons' Hover Effect */
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+.btn-edit {
+  background-color: #FFB6C1; /* Soft pastel pink */
+  color: black;
+  border-radius: 12px;
+  padding: 6px 12px;
+  border: none;
+  font-weight: 600;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-edit:hover {
+  background-color: #f9a3b0; /* Light pink shade on hover */
+}
+
+.btn-delete {
+  background-color: #FF4F4F; /* Red for delete */
+  color: black;
+  border-radius: 12px;
+  padding: 6px 12px;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-delete:hover {
+  background-color: #f7b0b0; /* Light red shade on hover */
+}
+
+/* Column Spacing */
+.col {
+  display: flex;
+  justify-content: stretch;
+  padding: 10px;
 }
 
 /* ===== List & Book Entries ===== */
 .list-container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 0;
-  background-color: rgba(255, 255, 255, 0.3); /* Even lighter */
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
-}
-
-/* Single frosted background for all book entries */
-.book-list-wrapper {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 10px;
-}
-
-/* Each book entry is now a clickable row */
-.book-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.book-entry:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-/* Editable Input Fields (Inline) */
-
-.edit-mode {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.editable-input {
-  background: transparent;
-  border: none;
-  text-align: center;
-  color: black;
-  padding: 5px;
-  min-width: 40%;
-}
-
-.editable-input:focus {
-  outline: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-/* ===== Buttons (Completely Transparent Delete & Test Data Buttons) ===== */
-button {
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: black;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-text {
-  all: unset;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 0.9rem;
-  padding: 4px 10px;
-  font-weight: 500;
-  opacity: 0.8;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2); /* Even lighter */
   border-radius: 20px;
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out,
-    border-color 0.2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px); /* More subtle blur */
 }
 
-.btn-text:hover {
-  color: black;
-  opacity: 1;
-  border-color: rgba(0, 0, 0, 0.4);
-  text-decoration: none;
+/* Custom Navbar styling */
+.custom-navbar {
+  background-color: rgba(248, 199, 209, 0.8) !important; /* Pastel Pink with opacity */
+  color: black; /* Text color */
 }
 
-/* Primary Button (Edit, Add Book) */
-.btn-text-primary {
-  all: unset;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.9);
-  font-size: 1rem;
-  padding: 8px 16px;
-  font-weight: 600;
-  opacity: 1;
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+.custom-navbar .navbar-brand, .custom-navbar .nav-link {
+  color: black; /* Black text for links */
 }
 
-.btn-text-primary:hover {
-  color: black;
-  text-decoration: underline;
+.custom-navbar a {
+  color: black; /* Text color */
 }
 
-button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-  opacity: 1;
+.custom-navbar a:hover {
+  color: #d1461b; 
 }
 
-/* Neutral Delete Button */
-.btn-danger {
-  all: unset;
-  color: rgba(0, 0, 0, 0.7);
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  opacity: 0.8;
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+.custom-navbar .navbar-toggler-icon {
+  background-color: rgba(255, 188, 201, 0.8); /* Black for hamburger icon */
 }
 
-.btn-danger:hover {
-  color: red;
-  opacity: 1;
-  text-decoration: underline;
+.custom-navbar .nav-link {
+  color: black !important;
 }
 
-/* Warning Button (For secondary actions) */
-.btn-warning {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 5px 10px;
+.custom-navbar .nav-link:hover {
+  color: black !important;
 }
 
-.btn-warning:hover {
-  background: rgba(255, 255, 255, 0.4);
-  opacity: 1;
-}
-
-/* Delete Button (Now fully transparent inside frosted container) */
-.btn-delete-transparent {
-  background: none;
-  border: none;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btn-delete-transparent:hover {
-  color: red;
-  transform: scale(1.1); /* Small effect to make it feel interactive */
-}
-
-/* Transparent Button (Generic usage) */
-.btn-transparent {
-  background: none;
-  border: none;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s, transform 0.2s;
-}
-
-.btn-transparent:hover {
-  color: red;
-  transform: scale(1.05);
-}
-
-/* Test Data Buttons - Fully Transparent */
-.test-data-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.test-data-buttons .btn {
-  background: none;
-  border: none;
-  color: black;
-  font-weight: bold;
-  padding: 8px 12px;
-}
-
-.test-data-buttons .btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: black;
-  transform: scale(1.05);
-}
-
-/* ===== Text & Readability ===== */
-.book-text {
-  flex-grow: 1;
-}
-
-.text-center {
-  text-align: center;
+/* Search Bar */
+.search-bar {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 5px;
+  border: 1 px solid #ccc;
+  margin: 10pm 0;
 }
